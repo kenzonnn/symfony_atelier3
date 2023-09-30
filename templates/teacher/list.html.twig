@@ -1,0 +1,30 @@
+{% set nbreAuthor = 0 %}
+{% if tableau|length != 0 %}
+<table>
+    <tr>
+        <td> ID </td>
+        <td> PICTURE </td>
+        <td> USERNAME </td>
+        <td> EMAIL </td>
+        <td> NOMBRE BOOKS </td>
+        <td> DETAILS </TD>
+    </tr>
+    {% for element in tableau %}
+    {% set nbreAuthor = nbreAuthor + 1 %}
+    <tr>
+        <td>{{element.id}}</td>
+        <td><img src="{{ asset(element.picture) }}" alt="{{ element.username }}'s picture" width="100"></td>
+        <td>{{element.username | upper}}</td>
+        <td>{{element.email}}</td>
+        <td>{{element.nb_books}}</td>
+        <td><a href="{{path('auhtorDetails', {'id': element.id, 'name': element.username , 'email' : element.email , 'nbreLivre' : element.nb_books , 'picture' : element.picture} )}}"> Détails </td>
+    </tr>
+    {%endfor%}
+</table>
+{% else %}  
+<p>Pas d'elements </p>
+{% endif %}
+{% if tableau is empty %} <p> Pas d'elements </p>
+{% endif %}
+<br>
+Nombre des auteurs = {{nbreAuthor}}
